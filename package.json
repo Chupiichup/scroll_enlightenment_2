@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Chupiichup.github.io/https-github.com-Chupiichup-scroll_enlightenment/",
+  "homepage": "https://Chupiichup.github.io/scroll_enlightenment_2/",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "predeploy": "npm run build",
