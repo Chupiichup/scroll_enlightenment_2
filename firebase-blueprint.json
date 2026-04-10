@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "Goal": {
+      "title": "Goal",
+      "description": "A hierarchical goal (Grand -> Year -> Quarter -> Month -> Week)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "level": { "type": "string", "enum": ["grand", "year", "quarter", "month", "week"] },
+        "parentId": { "type": "string" },
+        "targetValue": { "type": "number" },
+        "currentValueAbs": { "type": "number", "description": "Manual input absolute value" },
+        "progressAvg": { "type": "number", "description": "Average percentage of children" },
+        "unit": { "type": "string" },
+        "timeValue": { "type": "string", "description": "Year (2026), Quarter (1-4), Month (1-12), Week (1-52)" },
+        "startDate": { "type": "string", "format": "date" },
+        "endDate": { "type": "string", "format": "date" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "ownerId", "level", "targetValue", "unit"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A task list item within a Week Goal",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "goalId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "progress": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "goalId", "ownerId"]
+    },
+    "SubTask": {
+      "title": "SubTask",
+      "description": "A draggable sub-task assigned to a day",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "taskId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "dayOfWeek": { "type": "number", "description": "1-7 (Mon-Sun)" },
+        "date": { "type": "string", "format": "date" },
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "notes": { "type": "string" },
+        "isCompleted": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "taskId", "ownerId"]
+    }
+  },
+  "firestore": {
+    "/goals/{goalId}": { "schema": "Goal", "description": "User goals" },
+    "/tasks/{taskId}": { "schema": "Task", "description": "User tasks" },
+    "/subtasks/{subtaskId}": { "schema": "SubTask", "description": "User sub-tasks" }
+  }
+}
